@@ -23,8 +23,8 @@ const images = () => {
             const path = target.parentNode.getAttribute('href');
             bigImage.setAttribute('src', path);
             document.body.style.overflow = "hidden";
-            bigImage.style.height = 'auto';
-            bigImage.style.width = '100%';
+            //bigImage.style.height = 'auto';
+            // bigImage.style.width = 'auto';
             
             
         }
