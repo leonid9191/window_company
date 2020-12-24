@@ -10,6 +10,7 @@ const images = () => {
     imgPopup.style.alignItems = 'center';
     imgPopup.style.display = 'none';
 
+
     imgPopup.appendChild(bigImage);
 
     workSection.addEventListener('click', (e) => {
@@ -21,10 +22,16 @@ const images = () => {
             imgPopup.style.display = 'flex';
             const path = target.parentNode.getAttribute('href');
             bigImage.setAttribute('src', path);
+            document.body.style.overflow = "hidden";
+            bigImage.style.height = 'auto';
+            bigImage.style.width = '100%';
+            
+            
         }
 
         if (target && target.matches('div.popup')) {
             imgPopup.style.display = 'none';
+            document.body.style.overflow = "";
         }
     });
 }

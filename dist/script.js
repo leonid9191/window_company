@@ -18056,10 +18056,14 @@ var images = function images() {
       imgPopup.style.display = 'flex';
       var path = target.parentNode.getAttribute('href');
       bigImage.setAttribute('src', path);
+      document.body.style.overflow = "hidden";
+      bigImage.style.height = 'auto';
+      bigImage.style.width = '100%';
     }
 
     if (target && target.matches('div.popup')) {
       imgPopup.style.display = 'none';
+      document.body.style.overflow = "";
     }
   });
 };
@@ -18087,7 +18091,8 @@ var modals = function modals() {
     var trigger = document.querySelectorAll(triggerSelector),
         modal = document.querySelector(modalSelector),
         close = document.querySelector(closeSelector),
-        windows = document.querySelectorAll('[data-modal]');
+        windows = document.querySelectorAll('[data-modal]'),
+        scroll = calcScroll();
     trigger.forEach(function (item) {
       item.addEventListener('click', function (e) {
         if (e.target) {
@@ -18100,7 +18105,8 @@ var modals = function modals() {
         modal.style.display = "block"; // show page
 
         document.body.style.overflow = "hidden"; //frizzen our page
-        //document.body.classList.add('modal-open);
+
+        document.body.style.marginRight = "".concat(scroll, "px"); //document.body.classList.add('modal-open);
       });
     }); //close modal
 
@@ -18110,6 +18116,7 @@ var modals = function modals() {
       });
       modal.style.display = "none";
       document.body.style.overflow = "";
+      document.body.style.marginRight = "0px";
     }); //close when click out of modal window
 
     modal.addEventListener('click', function (e) {
@@ -18119,6 +18126,7 @@ var modals = function modals() {
         });
         modal.style.display = "none";
         document.body.style.overflow = "";
+        document.body.style.marginRight = "0px";
       }
     });
   }
@@ -18128,6 +18136,18 @@ var modals = function modals() {
       document.querySelector(selector).style.display = "block";
       document.body.style.overflow = "hidden"; //frizzen our page
     }, time);
+  }
+
+  function calcScroll() {
+    var div = document.createElement('div');
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+    document.body.appendChild(div);
+    var scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+    return scrollWidth;
   }
 
   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
